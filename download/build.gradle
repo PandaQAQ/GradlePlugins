@@ -1,0 +1,31 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+}
+
+//publish to local directory
+def versionName = "1.0.0"
+group "com.pandaq.plugins"
+version versionName
+
+uploadArchives{ //当前项目可以发布到本地文件夹中
+    repositories {
+        mavenDeployer {
+            repository(url: uri('./repo')) //定义本地maven仓库的地址
+        }
+    }
+}
